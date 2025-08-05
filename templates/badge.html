@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Event Badge</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            /* Using Roboto as a clean, readable font */
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;    /* Center vertically */
+            min-height: 100vh;      /* Full viewport height */
+            background-color: #f0f2f5; /* Light grey-blue background */
+            flex-direction: column; /* Stack children (badge and controls) vertically */
+            padding: 30px; /* More generous padding around content */
+            box-sizing: border-box; /* Ensures padding doesn't add to element's total width/height */
+            color: #34495e; /* Darker, more professional text color */
+        }
+
+        /* Badge Specific Styling */
+        .badge {
+            border: 1px solid #dfe6e9; /* Softer, subtle border */
+            padding: 100px 30px 150px 30px; /* Top, Right, Bottom, Left - reduced top padding */
+            width: 280px; /* Slightly wider badge for better content flow */
+            max-width: 90%; /* Ensure responsiveness */
+            text-align: center;
+            background-color: #ffffff; /* Pure white background for badge */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* More pronounced, softer shadow */
+            border-radius: 15px; /* More rounded corners for a modern feel */
+            position: relative;
+            margin-bottom: 30px; /* Space between badge and controls */
+            overflow: hidden; /* Ensures content doesn't bleed out */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .permanent-logo {
+            position: absolute;
+            width: 130px; /* Slightly smaller permanent logos */
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08); /* Lighter shadow */
+            z-index: 10;
+        }
+
+        .permanent-logo.top-left {
+            top: 15px; /* Slightly more space from top */
+            left: 15px;
+        }
+
+        .permanent-logo.top-right {
+            top: 15px;
+            right: 15px;
+        }
+
+        /* Event-specific logo */
+        .logo {
+            width: 150px; /* Main logo size */
+            height: 150px; /* Maintain aspect ratio better with fixed height */
+            object-fit: cover; /* Crop image to fit while covering area */
+            border-radius: 50%; /* Perfect circle */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* More prominent shadow for main logo */
+            margin-top: 15px; /* Space below permanent logos */
+            margin-bottom: 20px; /* More space between logo and event title */
+            border: 4px solid #f8f9fa; /* Subtle white border around logo */
+        }
+
+        /* Text Styling within the badge */
+        .badge p {
+            margin: 4px 0; /* Tighter vertical spacing for paragraphs */
+            font-size: 1em; /* Standard paragraph font size */
+            line-height: 1.4;
+            color: #5d6d7e; /* Medium grey text color */
+        }
+
+        .badge p strong {
+            color: #2c3e50; /* Darker bold text for emphasis */
+            font-weight: 500; /* Medium bold */
+        }
+
+        .event-title {
+            font-family: 'Montserrat', sans-serif; /* Distinct font for event title */
+            font-size: 1.8em; /* Larger event title */
+            font-weight: 700; /* Extra bold */
+            color: #2980b9; /* A vibrant blue for the event title */
+            margin-top: 0; /* Aligned with the flex flow */
+            margin-bottom: 8px; /* Space below title */
+            text-transform: uppercase;
+            letter-spacing: 1.5px; /* Increased letter spacing for impact */
+            line-height: 1.2;
+        }
+
+        /* Specific styling for Client Name and Status */
+        .client-name {
+            font-family: 'Montserrat', sans-serif; /* Use Montserrat for name too */
+            font-size: 2.2em; /* Larger client name */
+            font-weight: 800; /* Semi-bold */
+            color: #9c2929; /* Darker color for prominence */
+            margin-top: 15px; /* More space above name */
+            margin-bottom: 5px; /* Space between name and status */
+            text-transform: uppercase; /* **Uppercase for captivation** */
+            letter-spacing: 1.5px; /* **Slight letter spacing for distinction** */
+        }
+
+        .client-status {
+            font-family: 'Roboto', sans-serif; /* Keep Roboto for status */
+            font-size: 1.2em; /* Larger status text */
+            font-weight: 500; /* Medium weight for status */
+            color: #e67e22; /* A warm orange for status to make it stand out */
+            background-color: #fef5eb; /* Light background for status */
+            padding: 4px 12px;
+            border-radius: 20px; /* Pill-shaped background */
+            display: inline-block; /* Allows padding and border-radius */
+            margin-top: 5px; /* Space below name */
+            margin-bottom: 15px; /* Space before sponsors */
+            text-transform: capitalize; /* Capitalize status text */
+        }
+
+        /* Sponsor Logos Container */
+        .sponsors-container {
+            position: absolute;
+            bottom: 15px; /* Slightly higher from bottom */
+            left: 10px;
+            right: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px; /* Increased space between logos */
+            padding: 8px; /* Internal padding */
+            border-top: 1px solid #ecf0f1; /* Lighter separator line */
+            padding-top: 12px;
+            max-height: 100px;
+            overflow: hidden;
+        }
+
+        .sponsors-container img.sponsort-logo {
+            max-width: 70px; /* Slightly larger sponsor logos */
+            height: auto;
+            object-fit: contain;
+            margin: 0; /* Reset margin */
+            border-radius: 6px; /* Slightly more rounded corners */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Very subtle shadow */
+            opacity: 0.85; /* Slight transparency for a softer look */
+            transition: opacity 0.3s ease;
+        }
+
+        .sponsors-container img.sponsort-logo:hover {
+            opacity: 1; /* Fully opaque on hover */
+        }
+
+        /* Controls/Buttons Styling */
+        .controls {
+            display: flex;
+            gap: 25px; /* More space between buttons */
+            margin-top: 25px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 30px; /* Larger padding for buttons */
+            background-color: #2ecc71; /* Brighter green for print */
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 10px; /* More rounded buttons */
+            cursor: pointer;
+            font-size: 1.15em; /* Slightly larger font */
+            font-weight: 500;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1); /* Softer shadow */
+        }
+
+        .action-button:hover {
+            background-color: #27ae60; /* Darker green on hover */
+            transform: translateY(-3px); /* More pronounced lift */
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+        }
+
+        .action-button.retour {
+            background-color: #3498db; /* A friendly blue for retour */
+        }
+        .action-button.retour:hover {
+            background-color: #2980b9;
+        }
+
+        /* Print-specific styles (kept largely the same for functionality) */
+        @media print {
+            .controls {
+                display: none; /* Hide buttons when printing */
+            }
+        }    
+    </style>
+</head>
+<body>
+    <div class="badge">
+        <img src="/static/medina events logo.jpg" alt="Permanent Logo 1" class="permanent-logo top-left">
+        <img src="/static/medina yasmine hammamet logo.png" alt="Permanent Logo 2" class="permanent-logo top-right">
+
+        {% if event_logo_url %}
+        <img src="{{ event_logo_url }}" alt="Event Logo" class="logo">
+        {% endif %}
+
+        <p class="event-title">{{ event_title }}</p>
+        <p>{{ event_date }}</p>
+        <p>{{ event_lieu }}</p>
+        {# Applied new classes for better styling control #}
+        <p class="client-name">{{ client_nom }} {{ client_prenom }}</p>
+        <p class="client-status">{{ client_status }}</p>
+
+        <div class="sponsors-container">
+            {% if event_sponsort %}
+                {% set sponsor_urls = event_sponsort.split(',') %}
+                {% for url in sponsor_urls %}
+                    {% if url.strip() %} {# Check if the URL is not just whitespace #}
+                        <img src="{{ url.strip() }}" alt="Sponsor Logo" class="sponsort-logo">
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="controls">
+        <a href="{{ url_for('admin_dashboard') }}" class="action-button retour">Annuler</a>
+
+        <button onclick="window.print()" class="action-button">Imprimer le badge</button>
+    </div>
+</body>
+</html>

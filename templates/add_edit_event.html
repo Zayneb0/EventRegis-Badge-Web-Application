@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form_title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 550px;
+            box-sizing: border-box;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: auto; /* Adjust width based on content */
+            margin-right: 15px; /* Space between buttons */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .cancel-link {
+            display: inline-block;
+            background-color: #6c757d;
+            color: white;
+            padding: 15px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .cancel-link:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Ajouter un événement</h1>
+    <form method="POST">
+        <label for="titre">Titre:</label>
+        <input type="text" id="titre" name="titre" value="{{ event.titre if event else '' }}" required><br><br>
+
+        <label for="logo">Logo URL:</label>
+        <input type="text" id="logo" name="logo" value="{{ event.logo if event else '' }}"><br><br>
+
+        <label for="date_debut">Date début:</label>
+        <input type="date" id="date_debut" name="date_debut" value="{{ event.date_début.strftime('%Y-%m-%d') if event and event.date_début else '' }}" required><br><br>
+
+        <label for="date_fin">Date fin:</label>
+        <input type="date" id="date_fin" name="date_fin" value="{{ event.date_fin.strftime('%Y-%m-%d') if event and event.date_fin else '' }}" required><br><br>
+
+        <label for="lieu">Localisation:</label>
+        <input type="text" id="lieu" name="lieu" value="{{ event.lieu if event else '' }}" required><br><br>
+
+        <label for="description_courte">Description:</label>
+        <textarea id="description_courte" name="description_courte">{{ event.description_courte if event else '' }}</textarea><br><br>
+
+        <label for="sponsort">Sponsort:</label>
+        <input type="text" id="sponsort" name="sponsort" value="{{ event.sponsort if event else '' }}"><br><br>
+
+        <button type="submit">Enregistrer l'événement</button>
+        <a href="{{ url_for('events') }}">Annuler</a>
+    </form>
+</body>
+</html>

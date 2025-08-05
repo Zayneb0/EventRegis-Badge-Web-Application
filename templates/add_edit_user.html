@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ form_title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: calc(100% - 20px); /* Adjust for padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .cancel-link {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        .cancel-link:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ form_title }}</h1>
+    <form method="POST">
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" value="{{ user.nom if user else '' }}"><br><br>
+
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" value="{{ user.prénom if user else '' }}"><br><br>
+
+        <label for="cin">CIN :</label>
+        <input type="text" id="cin" name="cin" value="{{ user.cin if user else '' }}"><br><br>
+
+        <label for="telephone">Téléphone :</label>
+        <input type="text" id="telephone" name="telephone" value="{{ user.téléphone if user else '' }}"><br><br>
+
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <select id="role" name="role" class="form-control">
+                <option value="">Sélectionner un role</option>
+                <option value="Admin" {% if user and user.role == 'Admin' %}selected{% endif %}>Admin</option>
+                <option value="Responsable Marketing" {% if user and user.role == 'Responsable Marketing' %}selected{% endif %}>Responsable Marketing</option>
+                <option value="Agent De Saisie" {% if user and user.role == 'Agent De Saisie' %}selected{% endif %}>Agent De Saisie</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Statut:</label>
+            <select id="status" name="status" class="form-control">
+                <option value="">Sélectionner un statut</option>
+                <option value="Active" {% if user and user.status == 'Active' %}selected{% endif %}>Active</option>
+                <option value="Inactif" {% if user and user.status == 'Inactif' %}selected{% endif %}>Inactif</option>
+            </select>
+        </div>
+
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" value="{{ user.email if user else '' }}" required><br><br>
+
+        <label for="password">Mot de passe :</label>
+        <input type="password" id="password" name="password" {% if not user %}required{% endif %}>
+        {% if user %}<small>Laisser vide pour ne pas changer le mot de passe.</small>{% endif %}<br><br>
+
+        <button type="submit">Enregistrer</button>
+        <a href="{{ url_for('manage_accounts') }}" class="cancel-link">Annuler</a>
+    </form>
+</body>
+</html>

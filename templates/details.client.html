@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du client: {{ client.nom }} {{ client.prénom }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .details-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            width: 90%;
+            max-width: 800px;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #e9ecef; /* Dashed line for subtle separation */
+        }
+
+        .detail-item:last-child {
+            border-bottom: none; /* No border for the last item */
+        }
+
+        .detail-item strong {
+            color: #495057;
+            min-width: 150px; /* Align labels */
+            font-size: 1.05em;
+        }
+
+        .detail-item span {
+            flex-grow: 1;
+            color: #333;
+            font-size: 1em;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            padding: 0 10px;
+        }
+
+        .back-to-dashboard-button {
+            display: inline-block;
+            padding: 10px 18px;
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.95em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .back-to-dashboard-button:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Flash message styling (retained for consistency) */
+        .flash-messages-container {
+            width: 90%; /* Match content width */
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+        }
+
+        .flash-message {
+            padding: 12px 20px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+            opacity: 0.98;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .flash-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .flash-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .flash-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+                margin-top: 30px;
+                margin-bottom: 20px;
+            }
+            .details-container, .buttons-container, .flash-messages-container {
+                width: 95%;
+                padding: 20px;
+            }
+            .detail-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+            .detail-item strong {
+                min-width: unset;
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .details-container {
+                padding: 15px;
+            }
+            .detail-item strong, .detail-item span {
+                font-size: 0.9em;
+            }
+            .back-to-dashboard-button {
+                padding: 8px 15px;
+                font-size: 0.9em;
+            }
+            .flash-message {
+                font-size: 0.8em;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Détails du client : {{ client.nom }} {{ client.prénom }}</h1>
+
+    <div class="buttons-container">
+        <a href="{{ url_for('manage_clients') }}" class="back-to-dashboard-button">Retour à la gestion des clients</a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages-container">
+          {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="details-container">
+        <div class="detail-item">
+            <strong>ID Client:</strong> <span>{{ client.id_client }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Nom:</strong> <span>{{ client.nom }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Prénom:</strong> <span>{{ client.prénom }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Email:</strong> <span>{{ client.email }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Téléphone:</strong> <span>{{ client.tel if client.tel else 'N/A' }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Statut:</strong> <span>{{ client.status }}</span>
+        </div>
+        <div class="detail-item">
+            <strong>Événement Associé:</strong> <span>{{ client.event.titre if client.event else 'Aucun' }}</span>
+        </div>
+    </div>
+</body>
+</html>

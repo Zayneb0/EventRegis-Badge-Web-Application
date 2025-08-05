@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif; /* Using Inter font for a modern look */
+            background-color: #f4f4f4; /* Fallback color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative; /* Needed for pseudo-element positioning */
+            overflow: hidden; /* Prevent scrollbars from background */
+
+            /* Full Background Image Styles */
+            background-image: url('https://scontent.ftun2-2.fna.fbcdn.net/v/t39.30808-6/480983560_1099830025275751_5630205058293357568_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=dYkYKbddgPIQ7kNvwHukh7x&_nc_oc=AdlRd2LddQ0kJf9XWMSEXvIxgG57NltBt56hLnfJ8Z7naYq4h581uLwAVpnG5kDa9K4&_nc_zt=23&_nc_ht=scontent.ftun2-2.fna&_nc_gid=zYfiEi8GjAnHiqZ1ww10zA&oh=00_AfRAw6JPlN2SS3lZrN-vcTd1A5OUz1_muPu4OCifpc-luw&oe=688558D5');
+            background-size: cover; /* Cover the entire background */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+        }
+
+        h1 {
+            color: #ffffff; /* White color for better contrast on dark background */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+            margin-bottom: 40px; /* More space below title */
+            text-align: center;
+            font-size: 2.5em; /* Larger title */
+            letter-spacing: 1px;
+            z-index: 1; /* Ensure title is above content */
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+            padding: 40px;
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); /* Stronger, softer shadow */
+            width: 100%;
+            max-width: 450px; /* Slightly wider form */
+            box-sizing: border-box;
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            backdrop-filter: blur(8px); /* Frosted glass effect */
+            -webkit-backdrop-filter: blur(8px); /* Safari support */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for frosted effect */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px; /* More space below label */
+            font-weight: bold;
+            color: #333; /* Darker color for labels */
+            width: 100%;
+            text-align: left;
+            font-size: 1.1em;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 14px; /* Larger padding for inputs */
+            margin-bottom: 25px; /* More space below inputs */
+            border: 1px solid #c0c0c0; /* Softer border color */
+            border-radius: 8px; /* More rounded input fields */
+            box-sizing: border-box;
+            font-size: 1.1em; /* Larger font size in inputs */
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #007bff; /* Highlight border on focus */
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Subtle blue glow on focus */
+        }
+
+        button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 16px 30px; /* Larger padding for button */
+            border: none;
+            border-radius: 8px; /* More rounded button */
+            cursor: pointer;
+            font-size: 1.2em; /* Larger font size for button */
+            font-weight: 600; /* Semi-bold text */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Subtle shadow for button */
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px); /* More pronounced lift effect */
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4); /* Enhanced shadow on hover */
+        }
+
+        .flash-messages-container {
+            width: 100%;
+            max-width: 450px; /* Match form max-width */
+            margin-bottom: 25px; /* More space for flash messages */
+            z-index: 1; /* Ensure flash messages are above content */
+        }
+
+        .flash-message {
+            padding: 15px 25px; /* Larger padding for flash messages */
+            margin-bottom: 12px; /* More space between messages */
+            border-radius: 8px; /* More rounded corners */
+            font-weight: bold;
+            text-align: center;
+            opacity: 0.98; /* Slightly less transparent */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); /* Softer shadow */
+            font-size: 1.05em;
+        }
+
+        .flash-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .flash-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .flash-warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+        }
+        .flash-info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Connexion requise</h1>
+    
+    {# Flash Messages will appear here #}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages-container">
+          {% for category, message in messages %}
+            <div class="flash-message flash-{{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login') }}">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Se connecter</button>
+    </form>
+</body>
+</html>

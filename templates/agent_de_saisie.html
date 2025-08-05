@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Main Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #4A90E2;
+            --hover-blue: #357ABD;
+            --button-red: #E74C3C;
+            --button-red-hover: #C0392B;
+            --button-green: #2ECC71;
+            --button-green-hover: #27AE60;
+            --text-color-dark: #333333;
+            --text-color-light: #FFFFFF;
+            --bg-color-light: #F8F9FA;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-dark);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        h1 {
+            color: var(--text-color-dark);
+            margin-bottom: 60px;
+            font-size: 2.8em;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-shadow: 1px 1px 2px var(--shadow-light);
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            gap: 30px; /* Plus d'espace entre les boutons */
+            margin-bottom: 40px; /* Espace avant le bouton de déconnexion */
+            flex-wrap: wrap; /* Permet aux boutons de passer à la ligne sur petits écrans */
+            justify-content: center;
+        }
+
+        .button {
+            display: flex; /* Utilise flexbox pour centrer le texte */
+            justify-content: center;
+            align-items: center;
+            padding: 30px 40px; /* Ajustement du padding */
+            font-size: 26px; /* Taille de police légèrement augmentée */
+            font-weight: 700;
+            color: var(--text-color-light);
+            background-color: var(--primary-blue);
+            border: none;
+            border-radius: 12px; /* Rayon de bordure légèrement plus grand */
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease; /* Transition sur toutes les propriétés pour un effet plus doux */
+            width: 320px; /* Ajustement de la largeur */
+            min-height: 100px; /* Hauteur minimale pour des boutons uniformes */
+            box-sizing: border-box;
+            box-shadow: 0 8px 15px var(--shadow-medium); /* Ombre plus prononcée */
+        }
+
+        .button:hover {
+            background-color: var(--hover-blue);
+            transform: translateY(-5px); /* Léger déplacement vers le haut au survol */
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25); /* Ombre agrandie au survol */
+        }
+
+        .button.red {
+            background-color: var(--button-red);
+        }
+
+        .button.red:hover {
+            background-color: var(--button-red-hover);
+        }
+
+        .button.green {
+            background-color: var(--button-green);
+        }
+
+        .button.green:hover {
+            background-color: var(--button-green-hover);
+        }
+
+        /* Style pour le lien de déconnexion */
+        .logout-link {
+            font-size: 1.2em;
+            color: var(--primary-blue);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .logout-link:hover {
+            background-color: var(--primary-blue);
+            color: var(--text-color-light);
+            box-shadow: 0 4px 10px var(--shadow-light);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2em;
+                margin-bottom: 40px;
+            }
+
+            .button-container {
+                flex-direction: column; /* Empile les boutons verticalement sur les petits écrans */
+                gap: 20px;
+            }
+
+            .button {
+                width: 90%; /* Prend plus de largeur sur les petits écrans */
+                max-width: 350px; /* Limite la largeur maximale */
+                font-size: 22px;
+                padding: 25px 30px;
+            }
+
+            .logout-link {
+                font-size: 1em;
+                padding: 8px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+            .button {
+                font-size: 20px;
+                padding: 20px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Tableau de bord Agent de Saisie</h1>
+
+    <div class="button-container">
+        <a href="{{ url_for('manage_clients') }}" class="button red">Gestion des clients</a>
+    </div>
+    <p><a href="{{ url_for('logout') }}" class="logout-link">Déconnexion</a></p>
+</body>
+</html>
